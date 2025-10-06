@@ -27,6 +27,7 @@ public class StudentController {
 		//commentaire2
 		//comentaire3
 	//commentaire13
+		//testmerge2
 
 //testmerge
 >>>>>>> student-management
