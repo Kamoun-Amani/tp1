@@ -16,11 +16,8 @@ import tn.m104.rh.service.IStudentService;
 public class StudentController {
 
 	private IStudentService studentService;
-	//commentaire1
 
 <<<<<<< HEAD
-// commentaire2
-	//comentaire4
 =======
 
 >>>>>>> student-management
