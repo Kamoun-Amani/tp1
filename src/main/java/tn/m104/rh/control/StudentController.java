@@ -18,8 +18,7 @@ public class StudentController {
 	private IStudentService studentService;
 	//commentaire1
 
-// commentaire2
-	//commentaire3
+
 	@PostMapping("/registerStudent")
 	public Student registerStudent(@RequestBody Student student) {
 
