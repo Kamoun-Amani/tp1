@@ -16,10 +16,19 @@ import tn.m104.rh.service.IStudentService;
 public class StudentController {
 
 	private IStudentService studentService;
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 =======
 
+>>>>>>> student-management
+=======
+		//commentaire
+		//commentaire2
+		//comentaire3
+	//commentaire13
+
+//testmerge
 >>>>>>> student-management
 	@PostMapping("/registerStudent")
 	public Student registerStudent(@RequestBody Student student) {
