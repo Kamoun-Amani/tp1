@@ -12,66 +12,62 @@ import tn.m104.rh.repository.StudentRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(MockitoExtension.class)
 class StudentServiceImplTest {
+
     @Mock
     StudentRepository studentRepository;
 
     @InjectMocks
-    StudentServiceImpl studentService ;
+    StudentServiceImpl studentService;
 
-    Student student = new Student(1, "name1","adress1", 20.00);
-    List<Student> listStudents = new ArrayList<Student>() {
-        {
-            add(new Student(2, "name2","adress2", 30.00));
-            add(new Student(3, "name3","adress3", 10.00));
-        }
-    };
+    Student student = new Student(1, "name1", "adress1", 20.00);
 
-    // TDD : Test Driven Development : Developpement dirigé par les Tests
+    List<Student> listStudents = new ArrayList<Student>() {{
+        add(new Student(2, "name2", "adress2", 30.00));
+        add(new Student(3, "name3", "adress3", 10.00));
+    }};
+
+    @Test
+    @Order(1)
+    public void testGetStudents() {
+
+        Mockito.when(studentRepository.findAll())
+                .thenReturn(listStudents);
+
+        List<Student> result = studentService.getStudents();
+
+        Assertions.assertEquals(2, result.size());
+    }
 
     @Test
     @Order(2)
-    public void testGetStudents() {
-
-        Mockito.when(studentRepository.findAll()).thenReturn(listStudents);
-
-        List<Student> listU = studentService.getStudents();
-
-        Assertions.assertEquals(2, listU.size());
-    }
-
-
-
-   /* @Test
-    @Order(3)
     public void testAddStudent() {
 
-        Mockito.when(studentRepository.save(Mockito.anyObject())).
-                thenReturn(listStudents.add(student));
+        Mockito.when(studentRepository.save(Mockito.any(Student.class)))
+                .thenReturn(student);
 
+        Student saved = studentService.registerStudent(student);
 
-        studentService.registerStudent(student);
-
-        Assertions.assertEquals(3, listStudents.size());
+        Assertions.assertNotNull(saved);
+        Assertions.assertEquals("name1", saved.getName());
     }
-
 
     @Test
-    @Order(4)
-    public void testRemoveStudent() {
+    @Order(3)
+    public void testDeleteStudent() {
 
+        // deleteById() est void → doAnswer() pour simuler la suppression
+        Mockito.doAnswer(invocation -> {
+            listStudents.remove(0);
+            return null;
+        }).when(studentRepository).deleteById(listStudents.get(0).getRollNumber());
 
-        Mockito.when(studentRepository.deleteById(listStudents.get(0).getRollNumber())).
-         then(listStudents.remove(0));
+        // Appel réel du service
+        studentService.deleteStudent(listStudents.get(0).getRollNumber());
 
-
-
-        Assertions.assertEquals(2, listStudents.size());
+        // Après suppression, la liste doit contenir 1 élément
+        Assertions.assertEquals(1, listStudents.size());
     }
-
-*/
-
 }
