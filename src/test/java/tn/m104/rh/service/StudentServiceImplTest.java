@@ -31,7 +31,7 @@ class StudentServiceImplTest {
 
     @Test
     @Order(1)
-    public void testGetStudents() {
+     void testGetStudents() {
 
         Mockito.when(studentRepository.findAll())
                 .thenReturn(listStudents);
@@ -43,7 +43,7 @@ class StudentServiceImplTest {
 
     @Test
     @Order(2)
-    public void testAddStudent() {
+    void testAddStudent() {
 
         Mockito.when(studentRepository.save(Mockito.any(Student.class)))
                 .thenReturn(student);
