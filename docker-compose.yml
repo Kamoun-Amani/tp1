@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  mysqldb:
+    image: mysql:8
+    container_name: mysqldb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: school
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - school-network
+
+  school-app:
+    image: votre-username/school:1.0.0
+    container_name: school-app
+    ports:
+      - "8089:8089"
+    depends_on:
+      - mysqldb
+    networks:
+      - school-network
+
+volumes:
+  mysql_data:
+
+networks:
+  school-network:
